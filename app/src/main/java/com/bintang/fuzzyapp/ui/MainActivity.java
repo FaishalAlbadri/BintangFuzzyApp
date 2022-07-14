@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public void onBackPressed() {
         alertbuild.setTitle("Keluar Aplikasi")
-                .setMessage("Yakinkan anda ingin keluar dari aplikasi Fuzzy Kapasitas Produksi Seragam?")
+                .setMessage("Yakinkan anda ingin keluar dari aplikasi Fuzzy Kapasitas Produksi Sepeda?")
                 .setPositiveButton("Keluar", (dialog, which) -> {
                     finish();
                 }).setNegativeButton("Batal", ((dialog, which) -> {
