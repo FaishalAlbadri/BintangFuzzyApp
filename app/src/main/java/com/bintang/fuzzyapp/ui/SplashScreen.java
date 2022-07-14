@@ -30,7 +30,9 @@ public class SplashScreen extends AppCompatActivity {
         sessionManager = new SessionManager(getApplicationContext());
         hashMap = sessionManager.getData();
 
-        if (hashMap.get(SessionManager.key_permintaan_min) == null) {
+        if (hashMap.get(SessionManager.key_barang_rusak_min) == null) {
+            sessionManager.barangRusakMin("1000");
+            sessionManager.barangRusakMax("2000");
             sessionManager.permintaanMin("45000");
             sessionManager.permintaanMax("75000");
             sessionManager.persediaanMin("5000");

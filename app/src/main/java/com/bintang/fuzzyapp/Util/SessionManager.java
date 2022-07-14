@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 public class SessionManager {
 
+    public static final String key_barang_rusak_min = "key_barang_rusak_min";
+    public static final String key_barang_rusak_max = "key_barang_rusak_max";
     public static final String key_persediaan_min = "key_persediaan_min";
     public static final String key_persediaan_max = "key_persediaan_max";
     public static final String key_permintaan_min = "key_permintaan_min";
@@ -14,6 +16,8 @@ public class SessionManager {
     public static final String key_produksi_min = "key_produksi_min";
     public static final String key_produksi_max = "key_produksi_max";
 
+    public static final String pref_barang_rusak_min = "pref_barang_rusak_min";
+    public static final String pref_barang_rusak_max = "pref_barang_rusak_max";
     public static final String pref_persediaan_min = "pref_persediaan_min";
     public static final String pref_persediaan_max = "pref_persediaan_max";
     public static final String pref_permintaan_min = "pref_permintaan_min";
@@ -24,12 +28,14 @@ public class SessionManager {
     private Context context;
     private int mode;
 
-    private SharedPreferences persediaan_minPref, persediaan_maxPref, permintaan_minPref, permintaan_maxPref, produksi_minPref, produksi_maxPref;
-    private SharedPreferences.Editor persediaan_minEditor, persediaan_maxEditor, permintaan_minEditor, permintaan_maxEditor, produksi_minEditor, produksi_maxEditor;
+    private SharedPreferences barang_rusak_minPref, barang_rusak_maxPref, persediaan_minPref, persediaan_maxPref, permintaan_minPref, permintaan_maxPref, produksi_minPref, produksi_maxPref;
+    private SharedPreferences.Editor barang_rusak_minEditor, barang_rusak_maxEditor, persediaan_minEditor, persediaan_maxEditor, permintaan_minEditor, permintaan_maxEditor, produksi_minEditor, produksi_maxEditor;
 
     public SessionManager(Context context) {
         mode = 0;
         this.context = context;
+        barang_rusak_minPref = context.getSharedPreferences(pref_barang_rusak_min, mode);
+        barang_rusak_maxPref = context.getSharedPreferences(pref_barang_rusak_max, mode);
         persediaan_minPref = context.getSharedPreferences(pref_persediaan_min, mode);
         persediaan_maxPref = context.getSharedPreferences(pref_persediaan_max, mode);
         permintaan_minPref = context.getSharedPreferences(pref_permintaan_min, mode);
@@ -37,12 +43,26 @@ public class SessionManager {
         produksi_minPref = context.getSharedPreferences(pref_produksi_min, mode);
         produksi_maxPref = context.getSharedPreferences(pref_produksi_max, mode);
 
+        barang_rusak_minEditor = barang_rusak_minPref.edit();
+        barang_rusak_maxEditor = barang_rusak_maxPref.edit();
         persediaan_minEditor = persediaan_minPref.edit();
         persediaan_maxEditor = persediaan_maxPref.edit();
         permintaan_minEditor = permintaan_minPref.edit();
         permintaan_maxEditor = permintaan_maxPref.edit();
         produksi_minEditor = produksi_minPref.edit();
         produksi_maxEditor = produksi_maxPref.edit();
+    }
+
+    public void barangRusakMin(String data) {
+        barang_rusak_minEditor.clear();
+        barang_rusak_minEditor.putString(key_barang_rusak_min, data);
+        barang_rusak_minEditor.commit();
+    }
+
+    public void barangRusakMax(String data) {
+        barang_rusak_maxEditor.clear();
+        barang_rusak_maxEditor.putString(key_barang_rusak_max, data);
+        barang_rusak_maxEditor.commit();
     }
 
     public void persediaanMin(String data) {
@@ -83,6 +103,8 @@ public class SessionManager {
 
     public HashMap<String, String> getData() {
         HashMap<String, String> data = new HashMap<>();
+        data.put(key_barang_rusak_min, barang_rusak_minPref.getString(key_barang_rusak_min, null));
+        data.put(key_barang_rusak_max, barang_rusak_maxPref.getString(key_barang_rusak_max, null));
         data.put(key_persediaan_min, persediaan_minPref.getString(key_persediaan_min, null));
         data.put(key_persediaan_max, persediaan_maxPref.getString(key_persediaan_max, null));
         data.put(key_permintaan_min, permintaan_minPref.getString(key_permintaan_min, null));

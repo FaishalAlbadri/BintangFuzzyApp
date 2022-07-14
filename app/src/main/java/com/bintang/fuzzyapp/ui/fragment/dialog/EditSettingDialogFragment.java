@@ -89,7 +89,14 @@ public class EditSettingDialogFragment extends DialogFragment {
             edtEdit.setError("Data tidak boleh kosong");
             edtEdit.requestFocus();
         } else {
-            if (judul.equals("Persediaan Minimum")) {
+
+            if (judul.equals("Barang Rusak Minimum")) {
+                settingFragment.editMinBarangRusak(edtEdit.getText().toString());
+                dismiss();
+            } else if (judul.equals("Barang Rusak Maximum")) {
+                settingFragment.editMaxBarangRusak(edtEdit.getText().toString());
+                dismiss();
+            } else if (judul.equals("Persediaan Minimum")) {
                 settingFragment.editMinPersediaan(edtEdit.getText().toString());
                 dismiss();
             } else if (judul.equals("Persediaan Maximum")) {

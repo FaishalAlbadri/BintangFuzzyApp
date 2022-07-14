@@ -22,7 +22,10 @@ import butterknife.OnClick;
 
 public class SettingFragment extends Fragment {
 
-
+    @BindView(R.id.txt_min_barang_rusak_value)
+    TextView txtMinBarangRusakValue;
+    @BindView(R.id.txt_max_barang_rusak_value)
+    TextView txtMaxBarangRusakValue;
     @BindView(R.id.txt_min_permintaan_value)
     TextView txtMinPermintaanValue;
     @BindView(R.id.txt_max_permintaan_value)
@@ -61,12 +64,34 @@ public class SettingFragment extends Fragment {
     private void setData() {
         sessionManager = new SessionManager(getActivity());
         hashMap = sessionManager.getData();
+        txtMinBarangRusakValue.setText(hashMap.get(SessionManager.key_barang_rusak_min));
+        txtMaxBarangRusakValue.setText(hashMap.get(SessionManager.key_barang_rusak_max));
         txtMinPersediaanValue.setText(hashMap.get(SessionManager.key_persediaan_min));
         txtMaxPersediaanValue.setText(hashMap.get(SessionManager.key_persediaan_max));
         txtMinPermintaanValue.setText(hashMap.get(SessionManager.key_permintaan_min));
         txtMaxPermintaanValue.setText(hashMap.get(SessionManager.key_permintaan_max));
         txtMinProduksiValue.setText(hashMap.get(SessionManager.key_produksi_min));
         txtMaxProduksiValue.setText(hashMap.get(SessionManager.key_produksi_max));
+    }
+
+    @OnClick(R.id.txt_min_barang_rusak_value)
+    public void onClickMinBarangRusak() {
+        Bundle args = new Bundle();
+        args.putString("judul", "Barang Rusak Minimum");
+        args.putString("value", hashMap.get(SessionManager.key_barang_rusak_min));
+        EditSettingDialogFragment alert = new EditSettingDialogFragment(this);
+        alert.setArguments(args);
+        alert.show(fragmentManager, "");
+    }
+
+    @OnClick(R.id.txt_max_barang_rusak_value)
+    public void onClickMaxBarangRusak() {
+        Bundle args = new Bundle();
+        args.putString("judul", "Barang Rusak Maximum");
+        args.putString("value", hashMap.get(SessionManager.key_barang_rusak_max));
+        EditSettingDialogFragment alert = new EditSettingDialogFragment(this);
+        alert.setArguments(args);
+        alert.show(fragmentManager, "");
     }
 
 
@@ -130,6 +155,15 @@ public class SettingFragment extends Fragment {
         alert.show(fragmentManager, "");
     }
 
+    public void editMinBarangRusak(String value) {
+        sessionManager.barangRusakMin(value);
+        setData();
+    }
+
+    public void editMaxBarangRusak(String value) {
+        sessionManager.barangRusakMax(value);
+        setData();
+    }
     public void editMinPersediaan(String value) {
         sessionManager.persediaanMin(value);
         setData();
